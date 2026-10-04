@@ -1,0 +1,1 @@
+"""LogesticRegression_comprehensive: A Flower / Federated Logistic Regression app."""
