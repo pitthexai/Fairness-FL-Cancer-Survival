@@ -191,7 +191,7 @@ def train(msg: Message, context: Context) -> Message:
     cv_val_auc = float(np.nanmean(fold_aucs))
 
     # ------------------------------------------------------------
-    # 2) Actual local training for FedAvg
+    # 2) Training for FedAvg
     # ------------------------------------------------------------
     # This is the model update sent to the server.
     # It trains on the client's real training split only.
