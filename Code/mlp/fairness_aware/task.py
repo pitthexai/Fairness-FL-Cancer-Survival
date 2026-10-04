@@ -199,9 +199,6 @@ def get_site_scaler_cached(
         return _SCALERS_CACHE[key]
 
     split = get_site_split_cached(site_path, seed, test_size, val_size)
-
-    # Scaler is fitted ONLY on training data.
-    # It never sees validation or unseen test.
     scaler = StandardScaler()
     scaler.fit(split.X_train)
 
