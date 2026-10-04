@@ -142,10 +142,7 @@ def train(msg: Message, context: Context) -> Message:
     # ------------------------------------------------------------
     # 2) Training for federated XGBoost
     # ------------------------------------------------------------
-    # This is the model update sent to the server.
-    # It trains on the client's real training split only.
-    # Validation is used only as the normal holdout eval set.
-    # Unseen test is never used here.
+
     bst = xgb.train(
         params=params,
         dtrain=dtrain,
