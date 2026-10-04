@@ -546,23 +546,6 @@ def _run_shap_for_model(
         )
         plt.close()
 
-        #plt.figure(figsize=(10, 8))
-        #shap.summary_plot(
-            #shap_values,
-            #features=X_explain,
-            #feature_names=feature_names,
-            #plot_type="bar",
-            #max_display=20,
-            #show=False,
-        #)
-        #plt.tight_layout()
-        #plt.savefig(
-            #out_dir / f"shap_summary_bar_{prefix}_{exp_name}.png",
-            #dpi=300,
-            #bbox_inches="tight",
-        #)
-        #plt.close()
-
         print(f"Saved SHAP outputs for {prefix}")
 
     except Exception as e:
@@ -715,9 +698,7 @@ def _run_lime_for_model(
         _append_log(out_dir, "lime_error_log.txt", f"LIME failed for {prefix}: {repr(e)}")
 
 
-# =========================
-# Main Explainability/Fairness Runner
-# =========================
+
 def _run_posthoc_explainability_and_fairness(
     cfg,
     fed_w: np.ndarray,
@@ -882,9 +863,7 @@ def _run_posthoc_explainability_and_fairness(
             )
 
 
-# =========================
-# Main
-# =========================
+
 @app.main()
 def main(grid: Grid, context: Context) -> None:
     cfg = replace_keys(unflatten_dict(context.run_config))
@@ -1091,27 +1070,7 @@ def main(grid: Grid, context: Context) -> None:
             "PR_AUC(CI95%)": _format_ci(*rep["pr_auc_ci95"]),
         })
 
-    #print("\nLOCAL Models | Concat Test(all sites):")
-    #for i, (w_local, b_local) in enumerate(local_models):
-     #   y_prob = _predict_proba_lr(w_local, b_local, X_all)
-     #   rep = classification_report_with_ci(y_all, y_prob, thr, n_boot, seed + 200 + i)
-     #   print_one_line("LOCAL", f"Site {i+1} model | Concat Test(all sites)", rep)
 
-     #   final_rows.append({
-     #       "scope": f"LOCAL | Site {i+1} model | Concat Test(all sites)",
-     #       "Accuracy": rep["accuracy"],
-     #       "Accuracy(CI95%)": _format_ci(*rep["accuracy_ci95"]),
-     #       "Precision": rep["precision"],
-     #       "Precision(CI95%)": _format_ci(*rep["precision_ci95"]),
-     #       "Recall": rep["recall"],
-     #       "Recall(CI95%)": _format_ci(*rep["recall_ci95"]),
-     #       "F1": rep["f1"],
-     #       "F1(CI95%)": _format_ci(*rep["f1_ci95"]),
-     #       "ROC_AUC": rep["roc_auc"],
-     #       "ROC_AUC(CI95%)": _format_ci(*rep["roc_auc_ci95"]),
-     #       "PR_AUC": rep["pr_auc"],
-     #       "PR_AUC(CI95%)": _format_ci(*rep["pr_auc_ci95"]),
-     #   })
 
     pd.DataFrame(final_rows).to_csv(f"final_federated_metrics_{experiment_tag}.csv", index=False)
 
