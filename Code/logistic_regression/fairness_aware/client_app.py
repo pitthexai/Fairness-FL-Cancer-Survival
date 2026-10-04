@@ -13,7 +13,7 @@ from LogesticRegression_comprehensive.task import (
     load_data_for_client_scaled,
     replace_keys,
     get_site_split_scaled_cached,
-    get_kfold_train_val_splits_scaled,   # ✅ اضافه شد
+    get_kfold_train_val_splits_scaled, 
     sigmoid,
     binary_cross_entropy,
     roc_auc_safe,
@@ -107,7 +107,7 @@ def train(msg: Message, context: Context) -> Message:
     seed = int(cfg["data"]["seed"])
     test_size = float(cfg["data"]["test_size"])
     val_size = float(cfg["data"]["val_size"])
-    k_folds = int(cfg["data"].get("k_folds", 5))  # ✅
+    k_folds = int(cfg["data"].get("k_folds", 5))  
 
     local_epochs = int(cfg["fl"]["local_epochs"])
     batch_size = int(cfg["fl"]["batch_size"])
@@ -171,7 +171,7 @@ def train(msg: Message, context: Context) -> Message:
     cv_val_auc = float(np.nanmean(fold_aucs))
 
     # =========================
-    # 2) REAL training (FedAvg)
+    # 2) Training (FedAvg)
     # =========================
     final_w, final_b, holdout_metrics = _train_local_logreg(
         X_train=X_train,
@@ -192,8 +192,8 @@ def train(msg: Message, context: Context) -> Message:
     metrics = MetricRecord(
         {
             "num-examples": int(n_train),
-            "cv-val-loss": cv_val_loss,     # ✅ جدید
-            "cv-val-auc": cv_val_auc,       # ✅ جدید
+            "cv-val-loss": cv_val_loss,     
+            "cv-val-auc": cv_val_auc,       
             "val-loss": float(holdout_metrics["val-loss"]),
             "val-auc": float(holdout_metrics["val-auc"]),
         }
