@@ -201,14 +201,7 @@ def get_kfold_train_val_splits_scaled(
     val_size: float,
     k_folds: int = 5,
 ):
-    """
-    K-Fold is applied ONLY on the training set.
 
-    Important:
-    - unseen test is not used.
-    - holdout validation is not used.
-    - each fold gets its own scaler fitted only on that fold's training part.
-    """
     split = get_site_split_cached(
         site_path=site_path,
         seed=seed,
