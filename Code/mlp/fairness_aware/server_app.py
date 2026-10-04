@@ -573,23 +573,6 @@ def _run_shap_for_model(
         )
         plt.close()
 
-        #plt.figure(figsize=(10, 8))
-        #shap.summary_plot(
-            #shap_values,
-            #features=X_explain,
-            #feature_names=feature_names,
-            #plot_type="bar",
-            #max_display=20,
-            #show=False,
-        #)
-        #plt.tight_layout()
-        #plt.savefig(
-            #out_dir / f"shap_summary_bar_{prefix}_{exp_name}.png",
-            #dpi=300,
-            #bbox_inches="tight",
-        #)
-        #plt.close()
-
         print(f"Saved SHAP outputs for {prefix}")
 
     except Exception as e:
@@ -742,9 +725,7 @@ def _run_lime_for_model(
         _append_log(out_dir, "lime_error_log.txt", f"LIME failed for {prefix}: {repr(e)}")
 
 
-# =========================
-# Main Explainability/Fairness Runner
-# =========================
+
 def _run_posthoc_explainability_and_fairness(
     cfg,
     fed_model,
