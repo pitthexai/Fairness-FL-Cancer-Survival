@@ -54,9 +54,7 @@ LIME_NUM_FEATURES = 15
 LIME_NUM_SAMPLES = 1000
 
 
-# =========================
-# Experiment Tag
-# =========================
+
 def exp_tag(cfg) -> str:
     cancer = str(cfg["data"].get("cancer_name", "pancreas")).strip().lower()
     stage = str(cfg["data"].get("stage_name", "distant")).strip().lower()
@@ -242,9 +240,7 @@ def print_one_line(tag, title, rep):
     )
 
 
-# =========================
-# LR Predict helpers
-# =========================
+
 def _predict_proba_lr(w: np.ndarray, b: np.ndarray, X: np.ndarray) -> np.ndarray:
     return np.clip(sigmoid(X @ w + b[0]), 1e-7, 1 - 1e-7)
 
@@ -545,9 +541,7 @@ def _run_lime_for_model(
         _append_log(out_dir, "lime_error_log.txt", f"LIME failed for {prefix}: {repr(e)}")
 
 
-# =========================
-# Main Explainability Runner
-# =========================
+
 def _run_posthoc_explainability(
     cfg,
     fed_w: np.ndarray,
@@ -635,9 +629,7 @@ def _run_posthoc_explainability(
         )
 
 
-# =========================
-# Main
-# =========================
+
 @app.main()
 def main(grid: Grid, context: Context) -> None:
     cfg = replace_keys(unflatten_dict(context.run_config))
