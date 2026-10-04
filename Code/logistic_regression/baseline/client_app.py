@@ -154,10 +154,6 @@ def train(msg: Message, context: Context) -> Message:
     # ------------------------------------------------------------
     # 1) K-Fold evaluation only
     # ------------------------------------------------------------
-    # K-Fold is used only for estimating local validation behavior.
-    # Each fold starts from the same global weights.
-    # Fold weights are NOT chained from one fold to the next.
-    # Fold weights are NOT sent to the server.
     folds = get_kfold_train_val_splits_scaled(
         site_path=site_paths[partition_id],
         seed=seed,
@@ -193,10 +189,6 @@ def train(msg: Message, context: Context) -> Message:
     # ------------------------------------------------------------
     # 2) Training for FedAvg
     # ------------------------------------------------------------
-    # This is the model update sent to the server.
-    # It trains on the client's real training split only.
-    # Validation is used only for early stopping.
-    # Unseen test is never used here.
     final_w, final_b, holdout_metrics = _train_local_logreg(
         X_train=X_train,
         y_train=y_train.astype(np.float32),
